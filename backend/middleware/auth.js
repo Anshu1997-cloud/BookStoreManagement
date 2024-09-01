@@ -19,7 +19,7 @@ const auth = async ( req , res , next ) => {
 
         if ( !item )
         {
-            jwt.verify( accessToken , process.env.accessSecretKey , function(err, decoded) 
+            jwt.verify( accessToken , process.env.accessSecretKey , function( err , decoded ) 
             {
                 if ( !err )
                 {
@@ -29,17 +29,17 @@ const auth = async ( req , res , next ) => {
                 }
                 else
                 {
-                    res.send( { "error" : err } )  ;
+                    res.status(200).send( { "error" : err } )  ;
                 }
             });
         }
         else
         {
-            res.send( { "msg" : "Your are not logged in" } )  ;
+            res.status(200).send( { "msg" : "You are not logged in" } )  ;
         }      
         
     } catch (error) {
-        res.send( { "error" : error } )  ;
+        res.status(400).send( { "error" : error } )  ;
     }
 } 
 

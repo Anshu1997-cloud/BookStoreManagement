@@ -14,21 +14,26 @@ const { userRouter } = require( './routes/userRoutes' )  ;
 
 const { cartRouter } = require( './routes/cartRoutes' )  ;
 
+
 const app = express()  ;
 
-app.use( cors() )  ;
 
 app.use( express.json() )  ;
 
+app.use( cors() )  ;
+
+
 app.get( '/' , ( req , res ) => {
 
-    res.send( { 'msg' : 'this is Book Store home page' } )  ;
+    res.status(200).send( { 'msg' : 'this is Your Book Store app home page' } )  ;
     
 } )  ;
 
-app.use( '/user ' , userRouter )  ;
+
+app.use( '/user' , userRouter )  ;
 
 app.use( '/cart' , cartRouter )  ;
+
 
 app.listen( PORT , async ()=>{
     try {
