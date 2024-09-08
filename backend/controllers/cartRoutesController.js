@@ -51,22 +51,37 @@ const updateBookInCart = async ( req , res )=>{
 
         const book = await CartModel.updateOne( { booktitle , bookauthor , useremail } , req.body )  ;
 
-        res.status(201).send( { "msg" : "Book has been updated" , book } )  ;
+        res.status(200).send( { "msg" : "Book has been updated" , book } )  ;
 
     } catch (error) {
         res.status(400).send( {error} )  ;
     }
 }
 
-const deleteBookInCart = async ( req , res )=>{
+const removeBookFromCart = async ( req , res )=>{
     
     try {
         
         const { booktitle , bookauthor , useremail } = req.body  ;
 
-        await CartModel.deleteOne( { booktitle , bookauthor , useremail } )  ;
+        const book = await CartModel.deleteOne( { booktitle , bookauthor , useremail } )  ;
 
-        res.status(200).send( { "msg" : "Book removed from cart" } )  ;
+        res.status(200).send( { "msg" : "Book removed from cart" , book } )  ;
+
+    } catch (error) {
+        res.status(400).send( {error} )  ;
+    }
+} 
+
+const emptyCart = async ( req , res )=>{
+    
+    try {
+        
+        const { useremail } = req.body  ;
+
+        const books = await CartModel.deleteMany( { useremail } )  ;
+
+        res.status(200).send( { "msg" : "Empty Cart" , books } )  ;
 
     } catch (error) {
         res.status(400).send( {error} )  ;
@@ -74,4 +89,4 @@ const deleteBookInCart = async ( req , res )=>{
 } 
 
 
-module.exports = { getCart , addBookInCart , updateBookInCart , deleteBookInCart }  ;
+module.exports = { getCart , addBookInCart , updateBookInCart , removeBookFromCart , emptyCart }  ;
